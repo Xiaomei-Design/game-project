@@ -21,24 +21,58 @@ for(let i = 0; i < 9; i++) {
   squares.push(innerArray);
 }
 
+// sound
+
+let inputSound;
+function preload() {
+  // soundFormats('mp3', 'ogg');
+  inputSound = loadSound('/assets/sounds/Input/Input-04a.mp3');
+  itim = loadFont('./assets/fonts/Itim/Itim-Regular.ttf');
+  montserrat = loadFont('./assets/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf');
+}
+
+// let timer;
+// let counter = 300;
+// let seconds, minutes;
+
 
 function setup() {
-   let cnv = createCanvas(360, 360);
-   cnv.position (120, 100, 'fixed');
+  
+  let cnv = createCanvas(800, 360);
+   cnv.position (width/2, height/2, 'fixed');
    
    button = createButton('check');
-   button.position(550, 300);
-   button.mousePressed(collectNum);
-  }
-  
+   button.position(900, 300);
+   button.mouseClicked(collectNum);
+   button.style('font-size', '20px');
+   button.style('background-color', 'white');
+   button.style('border-color', 'darkgray')
+
+  //  button = createButton('timer');
+  //  button.position(550, 250);
+  //  button.mouseClicked(timeIt);
+}
+let s = 'check your solution by clicking "check" ';
+
 function draw() {
-    background(220);
+    background(255);
     for(let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         squares[i][j].render();
       }
     }
+    textFont(montserrat);
+    textSize(16);
+    text(s, 560, 200);
+    
 }
+
+function canvasPressed() {
+    // playing a sound file on a user gesture
+    // is equivalent to `userStartAudio()`
+    mySound.play();
+}
+
 
 function mouseClicked() {
   for(let i = 0; i < 9; i++) {
@@ -51,12 +85,87 @@ function mouseClicked() {
 function collectNum() {
     let collected = [];
     for(let i = 0; i < 9; i++) {
+        let innerCollected = [];
         for (let j = 0; j < 9; j++) {
-            collected.push(squares[j][i].textString);
+            innerCollected.push(squares[j][i].textString);
+        }
+    collected.push(innerCollected);
+    }
+    let result = checkDouble(collected);
+    if(checkDouble(collected) === true) {
+      s = 'you solved the sudoku';
+    } else {
+      s = `error: ${result}`;
+    }
+    // return collected;
+}
+
+function check1D(array) {
+    const numberContainer = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    for (let i = 0; i < numberContainer.length; i++) {
+        if(!(array.includes(numberContainer[i]))) {
+            return numberContainer[i];
         }
     }
-    console.log(collected)
-    // console.log(squares[0][1])
-    // console.log('xiaomaozi')
-    // const collected = [];
+    return true;
 }
+
+function checkDouble(collected) {
+    // check rows
+    console.log(collected.length);
+    for (let i = 0; i < collected.length; i++) {
+        let res = check1D(collected[i]);
+        if(res !== true) {
+            return `row ${i+1} does not include ${res}`;
+        }
+    }
+
+    // check cols
+    for (let i = 0; i < collected.length; i++) {
+        let col = [];
+        for (let j = 0; j < collected.length; j++) {
+            col.push(collected[j][i]);
+        }
+        let res = check1D(collected[i]);
+        if(res !== true) {
+            return `column ${i+1} does not include ${res}`;
+        }
+    }
+    // check 3x3 subSquares
+    for (let i = 0; i < 3; i++) {
+        let subA1 = [];
+        for (let j = 0; j < 3; j++) {
+            subA1.push(collected[3*i][j])
+            subA1.push(collected[3*i+1][j])
+            subA1.push(collected[3*i+2][j])
+        }
+        let res = check1D(collected[i]);
+        if(res !== true) {
+            return `Square ${i+1}, 1 does not include ${res}`;
+        }
+
+        let subA2 = [];
+        for (let j = 0; j < collected.length; j++) {
+            subA2.push(collected[3*i][j+3])
+            subA2.push(collected[3*i + 1][j+3])
+            subA2.push(collected[3*i + 2][j+3])
+        }
+        res = check1D(collected[i]);
+        if(res !== true) {
+            return `Square ${i+1}, 2 does not include ${res}`;
+        }
+
+        let subA3 = [];
+        for (let j = 0; j < collected.length; j++) {
+            subA3.push(collected[3*i][j+6])
+            subA3.push(collected[3*i + 1][j+6])
+            subA3.push(collected[3*i + 2][j+6])
+        }
+        res = check1D(collected[i]);
+        if(res !== true) {
+            return `Square ${i+1}, 3 does not include ${res}`;
+        }
+    }
+    return true; 
+}
+

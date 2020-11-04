@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <title>Panda Sudoku</title>
     <style> body{padding:0; margin:0;} </style>
    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+   <script src="./lib/p5.js"></script>
+   <script src="./lib/p5.sound.js"></script>
 </head>
 <body>
-    <h1>Panda Sudoku</h1>
+    <header>
+        <h1>Panda Sudoku</h1>
+        <h2>Fill out the squares by pressing a number on your keyboard and then clicking on it.</h2>
+    </header>
     <div id="game">
         <!-- P5 Canvas -->
-        <!-- <div id="canvas">
-        </div> -->
+        <div id="canvas">
+        </div>
     </div>
     <script src="square.js"></script>
     <script src="main.js"></script>

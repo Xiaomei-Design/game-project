@@ -13,9 +13,9 @@ class Square {
         fill(this.color);
         square(this.x, this.y, this.size);
         fill(this.textColor);
-        textSize(this.size);
-        textAlign(CENTER);
-        text(this.textString, this.x, this.y, this.size, this.size)
+        textSize(28);
+        textAlign(CENTER,CENTER);
+        text(this.textString, this.x+4, this.y, this.size, this.size)
         
     }
 
@@ -29,13 +29,16 @@ class Square {
             // let inp = createInput('');
             // let result = inp.input(myInputEvent);
             // this.textString = parseInt(9, 10);
-            const userInput = prompt('Plese type a number');
-            const numberContainer = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+            inputSound.play();
+            
+            const userInput = key;
+            const numberContainer = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
             if (numberContainer.includes(userInput)) {
                 this.textString = userInput;
+                this.color = 'yellow';
             } else {
                 alert('Please enter a valid input!')
-            }; 
+            };
         }
     }
 }
