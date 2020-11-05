@@ -27,19 +27,15 @@ let inputSound;
 let checkSound;
 let alertSound;
 function preload() {
-  // soundFormats('mp3', 'ogg');
   inputSound = loadSound('./assets/sounds/Input/Input-04a.mp3');
   checkSound = loadSound('./assets/sounds/Input/Input-03.mp3');
   alertSound = loadSound('./assets/sounds/Alert/Alert-10.mp3');
-
-  itim = loadFont('./assets/fonts/Itim/Itim-Regular.ttf');
   montserrat = loadFont('./assets/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf');
 }
 
-// let timer;
-// let counter = 300;
-// let seconds, minutes;
-
+let timer;
+let counter = 300;
+let seconds, minutes;
 
 function setup() {
   
@@ -53,10 +49,11 @@ function setup() {
    button.style('background-color', 'white');
    button.style('border-color', 'darkgray')
 
-  //  button = createButton('timer');
-  //  button.position(550, 250);
-  //  button.mouseClicked(timeIt);
+   timer = createP('timer');
+   timer.style('font-size', '20px');
+   setInterval(timeIt, 1000);
 }
+
 let s = 'check your solution by clicking "check" ';
 
 function draw() {
@@ -69,15 +66,26 @@ function draw() {
     textFont(montserrat);
     textSize(16);
     text(s, 560, 200);
-    
 }
 
-function canvasPressed() {
-    // playing a sound file on a user gesture
-    // is equivalent to `userStartAudio()`
-    mySound.play();
-}
+// function canvasPressed() {
+//     // playing a sound file on a user gesture
+//     // is equivalent to `userStartAudio()`
+//     mySound.play();
+// }
 
+function timeIt() {
+  if (counter > 0) {
+    counter--;
+  }
+  minutes = floor(counter/60);
+  seconds = counter % 60;
+  time = timer.html(minutes + ": " + seconds);
+  time.position(915, 230);
+  if(minutes === 0 && seconds === 0) {
+    s = 'Start it over by refreshing the page!'
+  }
+}
 
 function mouseClicked() {
   for(let i = 0; i < 9; i++) {
@@ -99,9 +107,9 @@ function collectNum() {
     }
     let result = checkDouble(collected);
     if(checkDouble(collected) === true) {
-      s = 'you solved the sudoku';
+      s = 'You solved the Panda Sudoku!';
     } else {
-      s = `error: ${result}`;
+      s = `Hint: ${result}`;
     }
     // return collected;
 }

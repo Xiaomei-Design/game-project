@@ -16,5 +16,4 @@ class Game {
         board = easy;
         
     }
-
 }

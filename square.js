@@ -22,13 +22,9 @@ class Square {
     clicked() {
         let checkX = mouseX > this.x && mouseX < (this.x + this.size);
         let checkY = mouseY > this.y && mouseY < (this.y + this.size);
-        // function myInputEvent() {
-        //     return this.value
-        // }
+        
         if(checkX && checkY) {
-            // let inp = createInput('');
-            // let result = inp.input(myInputEvent);
-            // this.textString = parseInt(9, 10);
+            
             inputSound.play();
             
             const userInput = key;
