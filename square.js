@@ -37,6 +37,7 @@ class Square {
                 this.textString = userInput;
                 this.color = 'yellow';
             } else {
+                alertSound.play();
                 alert('Please enter a valid input!')
             };
         }

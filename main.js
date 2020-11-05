@@ -24,9 +24,14 @@ for(let i = 0; i < 9; i++) {
 // sound
 
 let inputSound;
+let checkSound;
+let alertSound;
 function preload() {
   // soundFormats('mp3', 'ogg');
-  inputSound = loadSound('/assets/sounds/Input/Input-04a.mp3');
+  inputSound = loadSound('./assets/sounds/Input/Input-04a.mp3');
+  checkSound = loadSound('./assets/sounds/Input/Input-03.mp3');
+  alertSound = loadSound('./assets/sounds/Alert/Alert-10.mp3');
+
   itim = loadFont('./assets/fonts/Itim/Itim-Regular.ttf');
   montserrat = loadFont('./assets/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf');
 }
@@ -83,7 +88,8 @@ function mouseClicked() {
 }
 
 function collectNum() {
-    let collected = [];
+  checkSound.play();  
+  let collected = [];
     for(let i = 0; i < 9; i++) {
         let innerCollected = [];
         for (let j = 0; j < 9; j++) {
