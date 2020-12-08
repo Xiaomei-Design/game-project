@@ -1,8 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-
-
 h1 {
     font-family: 'Press Start 2P', cursive;
     text-align: center;
@@ -16,8 +14,3 @@ h2 {
     font-size: 16px;
 }
 
-/* #game {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-} */
